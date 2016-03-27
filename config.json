@@ -1,9 +1,0 @@
-{
-  "loggerLevel": "DEBUG",
-  "api": "https://lesbonneschoses-ulzozro531ca879z.prismic.io/api",
-  "urlBase": "http://localhost:8282/",
-  "oauthClientId": "VCp5tScAACgAE9vr",
-  "ignore": [
-    ".*~"
-  ]
-}

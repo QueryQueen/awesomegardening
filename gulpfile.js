@@ -8,12 +8,13 @@ var sequence = require('run-sequence');
 var sherpa   = require('style-sherpa');
 var surge = require('gulp-surge');
 var baked = require('baked/gulp');
+var env = require('gulp-env');
 
 // Check for --production flag
 var isProduction = !!(argv.production);
 
 // Port to use for the development server.
-var PORT = 8282;
+var PORT = 8080;
 
 // Browsers to target when prefixing CSS.
 var COMPATIBILITY = ['last 2 versions', 'ie >= 9'];
@@ -62,7 +63,11 @@ baked.init({
   options: {
     srcDir: 'src',
     dstDir: 'dist',
-    ignore: 'assets'
+    ignore: 'assets',
+    "loggerLevel": "DEBUG",
+    "api": "https://awesomegardening.prismic.io/api",
+    "urlBase": "http://localhost:8282/",
+    "accessToken":"MC5Wdmd6dXlZQUFEQTkxVmRt.GO-_ve-_vSkj77-9eO-_ve-_ve-_vQ3vv70c77-977-977-977-977-977-9ZO-_ve-_vXHvv73vv73vv73vv73vv73vv73vv73vv70t",
   },
   libName: 'baked.js'
 });
@@ -76,7 +81,8 @@ gulp.task('deploy', ['build','bake'], function () {
   })
 });
 
-gulp.task('server', ['baked:serve']);
+// gulp.task('server', ['baked:serve']);
+
 
 
 gulp.task('build', function(done) {
@@ -185,11 +191,11 @@ gulp.task('images', function() {
 // });
 
 // Start a server with LiveReload to preview the site in
-// gulp.task('server', ['build'], function() {
-//   browser.init({
-//     server: 'dist', port: PORT
-//   });
-// });
+gulp.task('server', ['build'], function() {
+  browser.init({
+    server: 'dist', port: PORT
+  });
+});
 
 // Build the site, run the server, and watch for file changes
 gulp.task('default', ['build', 'server'], function() {

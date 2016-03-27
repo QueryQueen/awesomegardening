@@ -4,9 +4,9 @@
   </head>
   <body>
 
-    <script type="text/prismic-query" data-binding="blogPosts" data-form="blog">
+    <script type="text/prismic-query" data-binding="blogPosts">
       [
-        [:d = at(document.tags, ["Featured"])]
+        [:d = at(document.type, "blogpost")]
       ]
     </script>
 
@@ -15,10 +15,10 @@
       <article>
         <h2>
           <a href="[%= pathTo('post', {id: post.id}) %]">
-            [%= post.getStructuredText("blog-post.body").getTitle().text %]
+            [%= post.getStructuredText("blogpost.title").getTitle().text %]
           </a>
         </h2>
-        <p>[%= post.getStructuredText("blog-post.body").getFirstParagraph().text %]</p>
+     
       </article>
 
       <hr>
