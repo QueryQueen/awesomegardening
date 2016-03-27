@@ -1,0 +1,30 @@
+
+[%- partial('layouts/head') %]
+  
+  </head>
+  <body>
+
+    <script type="text/prismic-query" data-binding="blogPosts" data-form="blog">
+      [
+        [:d = at(document.tags, ["Featured"])]
+      ]
+    </script>
+
+    [% _.each(blogPosts.results, function(post) { %]
+
+      <article>
+        <h2>
+          <a href="[%= pathTo('post', {id: post.id}) %]">
+            [%= post.getStructuredText("blog-post.body").getTitle().text %]
+          </a>
+        </h2>
+        <p>[%= post.getStructuredText("blog-post.body").getFirstParagraph().text %]</p>
+      </article>
+
+      <hr>
+
+    [% }) %]
+
+
+
+[%- partial('layouts/foot') %]

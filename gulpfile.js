@@ -6,12 +6,14 @@ var panini   = require('panini');
 var rimraf   = require('rimraf');
 var sequence = require('run-sequence');
 var sherpa   = require('style-sherpa');
+var surge = require('gulp-surge');
+var baked = require('baked/gulp');
 
 // Check for --production flag
 var isProduction = !!(argv.production);
 
 // Port to use for the development server.
-var PORT = 8000;
+var PORT = 8282;
 
 // Browsers to target when prefixing CSS.
 var COMPATIBILITY = ['last 2 versions', 'ie >= 9'];
@@ -56,6 +58,32 @@ var PATHS = {
   ]
 };
 
+baked.init({
+  options: {
+    srcDir: 'src',
+    dstDir: 'dist',
+    ignore: 'assets'
+  },
+  libName: 'baked.js'
+});
+
+
+
+gulp.task('deploy', ['build','bake'], function () {
+  return surge({
+    project: './generated',         // Path to your static build directory
+    domain: 'www.awesomegardening.nl'  // Your domain or Surge subdomain
+  })
+});
+
+gulp.task('server', ['baked:serve']);
+
+
+gulp.task('build', function(done) {
+  sequence('clean', 'baked:default', ['sass', 'javascript', 'images', 'copy'], done);
+});
+
+
 // Delete the "dist" folder
 // This happens every time a build starts
 gulp.task('clean', function(done) {
@@ -69,31 +97,31 @@ gulp.task('copy', function() {
     .pipe(gulp.dest('dist/assets'));
 });
 
-// Copy page templates into finished HTML files
-gulp.task('pages', function() {
-  gulp.src('src/pages/**/*.{html,hbs,handlebars}')
-    .pipe(panini({
-      root: 'src/pages/',
-      layouts: 'src/layouts/',
-      partials: 'src/partials/',
-      data: 'src/data/',
-      helpers: 'src/helpers/'
-    }))
-    .pipe(gulp.dest('dist'));
-});
+// // Copy page templates into finished HTML files
+// gulp.task('pages', function() {
+//   gulp.src('src/pages/**/*.{html,hbs,handlebars}')
+//     .pipe(panini({
+//       root: 'src/pages/',
+//       layouts: 'src/layouts/',
+//       partials: 'src/partials/',
+//       data: 'src/data/',
+//       helpers: 'src/helpers/'
+//     }))
+//     .pipe(gulp.dest('dist'));
+// });
 
-gulp.task('pages:reset', function(cb) {
-  panini.refresh();
-  gulp.run('pages');
-  cb();
-});
+// gulp.task('pages:reset', function(cb) {
+//   panini.refresh();
+//   gulp.run('pages');
+//   cb();
+// });
 
-gulp.task('styleguide', function(cb) {
-  sherpa('src/styleguide/index.md', {
-    output: 'dist/styleguide.html',
-    template: 'src/styleguide/template.html'
-  }, cb);
-});
+// gulp.task('styleguide', function(cb) {
+//   sherpa('src/styleguide/index.md', {
+//     output: 'dist/styleguide.html',
+//     template: 'src/styleguide/template.html'
+//   }, cb);
+// });
 
 // Compile Sass into CSS
 // In production, the CSS is compressed
@@ -151,17 +179,17 @@ gulp.task('images', function() {
     .pipe(gulp.dest('dist/assets/img'));
 });
 
-// Build the "dist" folder by running all of the above tasks
-gulp.task('build', function(done) {
-  sequence('clean', ['pages', 'sass', 'javascript', 'images', 'copy'], 'styleguide', done);
-});
+// // Build the "dist" folder by running all of the above tasks
+// gulp.task('build', function(done) {
+//   sequence('clean', ['pages', 'sass', 'javascript', 'images', 'copy'], 'styleguide', done);
+// });
 
 // Start a server with LiveReload to preview the site in
-gulp.task('server', ['build'], function() {
-  browser.init({
-    server: 'dist', port: PORT
-  });
-});
+// gulp.task('server', ['build'], function() {
+//   browser.init({
+//     server: 'dist', port: PORT
+//   });
+// });
 
 // Build the site, run the server, and watch for file changes
 gulp.task('default', ['build', 'server'], function() {
