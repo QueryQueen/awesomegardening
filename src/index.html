@@ -1,29 +1,62 @@
 
 [%- partial('layouts/head') %]
   
-  </head>
-  <body>
+</head>
+<body>
 
-    <script type="text/prismic-query" data-binding="blogPosts">
+<!-- Top bar -->
+<div class="row topmenu">
+    <div class="small-4 large-2 columns">
+      <a href="about.html">About</a>
+    </div>
+    
+    <div class="small-4 large-2 columns">
+      <a href="contactMe.html">Contact</a>
+    </div>
+    
+    <div class="small-4 large-8 columns">
+    <a href="gardenbook.html">Garden book</a>
+    </div>  
+</div>
+
+<!-- title of website. Background picture in css joedid -->
+<div class="row expanded header homepage">
+  <div class="small-12 columns title">
+    <h1>Awesome Gardening</h1>    
+  </div>
+</div> 
+
+
+<div class="row space10OnTop title">
+  <div class"small-12 columns">
+    <h2><span> &hearts; Latest Posts &hearts;</span></h2>
+  </div>
+</div>
+
+
+
+<!-- blogpost thumbnails with subtitle -->
+<script type="text/prismic-query" data-binding="blogPosts">
       [
         [:d = at(document.type, "blogpost")]
       ]
-    </script>
+</script>
 
-    [% _.each(blogPosts.results, function(post) { %]
-
+<div class="row space10OnTop small-up-2 large-up-4">
+[% _.each(blogPosts.results, function(post) { %]  
+    <div class="column">
       <article>
-        <h2>
+       <h3>
           <a href="[%= pathTo('post', {id: post.id}) %]">
             [%= post.getStructuredText("blogpost.title").getTitle().text %]
           </a>
-        </h2>
-     
+        </h3>
+        <p>[%= post.getStructuredText("blogpost.description").getFirstParagraph().text %]</p>
+        <img src="[%= post.getImage("blogpost.image").main.url %]" />
       </article>
-
-      <hr>
-
-    [% }) %]
+    </div>
+[% }) %]
+</div>ı
 
 
 
