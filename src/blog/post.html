@@ -1,4 +1,4 @@
-[%- partial('layouts/head') %]
+[%- partial('../layouts/head') %]
     <meta name="prismic-routing-pattern" content="$id">
     <meta name="prismic-routing-param" content="id">
     <meta property="og:url" content="[%= urlToHere() %]" />
@@ -19,11 +19,11 @@
 
     <h1>[%= blogPost.getStructuredText("blogpost.title").getTitle().text %]</h1>
 
+    [% var linkResolver = require("../linkResolver.js") %]    
+    
     <article>
-      [%= blogPost.getStructuredText("blogpost.description").getFirstParagraph().text %]
+    [%- blogPost.getSliceZone("blogpost.body").asHtml(linkResolver)%]       
     </article>
-
     <br />
 
-
-[%- partial('layouts/foot') %]
+[%- partial('../layouts/foot') %] 
