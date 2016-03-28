@@ -46,18 +46,61 @@
 [% _.each(blogPosts.results, function(post) { %]  
     <div class="column">
       <article>
+      <img class="thumbnail" src="[%= post.getImage("blogpost.image").main.url %]" />
        <h3>
-          <a href="[%= pathTo('post', {id: post.id}) %]">
+          <a href="[%= pathTo('blog/post', {id: post.id}) %]">
             [%= post.getStructuredText("blogpost.title").getTitle().text %]
           </a>
         </h3>
         <p>[%= post.getStructuredText("blogpost.description").getFirstParagraph().text %]</p>
-        <img src="[%= post.getImage("blogpost.image").main.url %]" />
       </article>
     </div>
 [% }) %]
-</div>ı
+</div>
+
+<!-- This is where the social gardening part starts with Instagram widget -->
+<div class="row title">
+  <div class"small-12 columns">
+    <h2><span> &hearts; Social Gardening &hearts;</span></h2>
+    <p> Awesome Gardening on Instagram</p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="small-12 columns">
+    
+    <!-- SnapWidget for small screens, 2x2 thumbnails -->
+    <script src="http://snapwidget.com/js/snapwidget.js"></script>
+    <iframe src="http://snapwidget.com/bd/?u=YXdlc29tZWdhcmRlbmluZ3xpbnwzMDB8MnwyfHx5ZXN8MzB8ZmFkZU91dHxvblN0YXJ0fHllc3x5ZXM=&ve=220316" 
+    title="Instagram Widget" class="snapwidget-widget show-for-small-only" allowTransparency="true" frameborder="0" scrolling="no" style="border:none; overflow:hidden; width:100%;"></iframe>
+   
+   <!-- SnapWidget for medium and up, 4x1 thumbnails -->
+    <script src="http://snapwidget.com/js/snapwidget.js"></script>
+    <iframe src="http://snapwidget.com/bd/?u=YXdlc29tZWdhcmRlbmluZ3xpbnwzMDB8NHwxfHx5ZXN8MzB8ZmFkZU91dHxvblN0YXJ0fHllc3x5ZXM=&ve=210316" 
+    title="Instagram Widget" class="snapwidget-widget show-for-medium" allowTransparency="true" frameborder="0" scrolling="no" style="border:none; overflow:hidden; width:100%;"></iframe>
+
+  </div>
+</div>
 
 
+<!-- bottom menu -->
+<hr>
+<div class="row topmenu">
+  <div class="small-3 large-2 columns">
+      <a href="#20160319">Blog Archive</a>
+    </div>
+    
+    <div class="small-3 large-2 columns">
+      <a href="contact.html">Contact</a>
+    </div>
+    
+    <div class="small-3 large-2 columns">
+    <a href="gardenbook.html">Garden book</a>
+    </div> 
+
+    <div class="small-3 large-6 columns">
+    <a href="http://www.instagram.com/awesomegardening/">Instagram</a>
+    </div>  
+</div>
 
 [%- partial('layouts/foot') %]
