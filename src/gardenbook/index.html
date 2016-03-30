@@ -1,0 +1,41 @@
+[%- partial('layouts/head') %]
+
+</head>
+<body>
+
+<!-- Top bar -->
+<div class="row topmenu">
+    <div class="small-4 large-2 columns">
+      <a href="index.html">Home</a>
+    </div>
+    
+    <div class="small-4 large-2 columns">
+      <a href="about/index.html">About</a>
+    </div>
+    
+    <div class="small-4 large-8 columns">
+    <a href="contact/index.html">Contact</a>
+    </div>  
+</div>
+
+<!-- title of page. Background picture in css joedid -->
+<div class="row expanded gardenbook header">
+  <div class="large-12 columns title">
+    <h1>Garden book</h1>    
+  </div>
+</div> 
+
+<!-- Second title of the page -->
+<div class="row10OnTop title">
+  <div class"small-12 columns">
+    <h2><span> &hearts; Soon to come &hearts;</span></h2>
+  </div>
+</div>
+
+<div class="expanded row">
+  <div class="large-12 columns text-center">
+    {{>gardenBlogHeader}}
+  </div>
+</div>
+
+[%- partial('layouts/foot') %]
