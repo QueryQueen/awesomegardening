@@ -7,15 +7,15 @@
 <!-- Top bar -->
 <div class="row topmenu">
     <div class="small-4 large-2 columns">
-      <a href="about/index.html">About</a>
+      <a href="about">About</a>
     </div>
     
     <div class="small-4 large-2 columns">
-      <a href="contact/index.html">Contact</a>
+      <a href="contact">Contact</a>
     </div>
     
     <div class="small-4 large-8 columns">
-    <a href="gardenbook/index.html">Garden book</a>
+    <a href="gardenbook">Tuinboek</a>
     </div>  
 </div>
 
@@ -43,9 +43,9 @@
 [% _.each(blogPosts.results, function(post) { %]  
     <div class="column">
       <article>
-      <img class="thumbnail" src="[%= post.getImage("blogpost.image").main.url %]" />
        <h3>
           <a href="[%= pathTo('blog/post', {id: post.id}) %]">
+          <img class="thumbnail" src="[%= post.getImage("blogpost.image").main.url %]" />
             [%= post.getStructuredText("blogpost.title").getTitle().text %]
           </a>
           <small>[%= post.getDate("blogpost.date").toDateString() %]</small>
@@ -60,7 +60,7 @@
 <div class="row title">
   <div class"small-12 columns">
     <h2><span> &hearts; Social Gardening &hearts;</span></h2>
-    <p> Awesome Gardening on Instagram</p>
+    <h3><small> Awesome Gardening on Instagram</small></h3>
   </div>
 </div>
 
@@ -93,7 +93,7 @@
     </div>
     
     <div class="small-3 large-2 columns">
-    <a href="gardenbook/index.html">Garden book</a>
+    <a href="gardenbook/index.html">Tuinboek</a>
     </div> 
 
     <div class="small-3 large-6 columns">
