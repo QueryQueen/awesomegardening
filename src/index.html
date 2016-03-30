@@ -15,7 +15,7 @@
     </div>
     
     <div class="small-4 large-8 columns">
-    <a href="gardenbook.html">Garden book</a>
+    <a href="gardenbook/index.html">Garden book</a>
     </div>  
 </div>
 
@@ -48,7 +48,7 @@
           <a href="[%= pathTo('blog/post', {id: post.id}) %]">
             [%= post.getStructuredText("blogpost.title").getTitle().text %]
           </a>
-          <small>[%post.getDate("blogpost.date").getDate%]</small>
+          <small>[%= post.getDate("blogpost.date").toDateString() %]</small>
         </h3>
         <p>[%= post.getStructuredText("blogpost.description").getFirstParagraph().text %]</p>
       </article>
