@@ -29,6 +29,18 @@
     }
 } 
 
+.title.blogpost{
+    h2{
+        padding-top: 5vh;
+        font-size: 2rem;
+        font-family: 'Emilys Candy', serif;
+        color: $pink;
+        width: 100%; 
+        border-bottom: none;
+        text-align: left; 
+    }
+}
+
 .topmenu{
     font-size:1rem;
     margin-top: 10px;
@@ -59,7 +71,7 @@
     }
     // Image for medium screens
     @include breakpoint(medium only) { 
-        background-image: url(../img/HomgepageHeader/HomepageHeader_1048.jpg)
+        background-image: url(../img/HomepageHeader/HomepageHeader_1048.jpg)
     }
     //image for large and up screens
     @include breakpoint(large) { 
@@ -116,13 +128,28 @@
     }
 }
 
+.header.blogpost{
+   background-color: &green;
+    // Image for small screens only
+    @include breakpoint(small only) { 
+        background-image: url(../img/blogpostHeader/blogpostHeader_768.jpg)
+    }
+    // Image for medium screens
+    @include breakpoint(medium only) { 
+        background-image: url(../img/blogpostHeader/blogpostHeader_1123.jpg)
+    }
+    //image for large and up screens
+    @include breakpoint(large) { 
+        background-image: url(../img/blogpostHeader/blogpostHeader_1290.jpg)
+    }
+}
+
+
 .blogpost{
-    padding-top: 30vh;
         font-size: 4rem;
         font-family: 'Emilys Candy', serif;
         color: $pink;
-        @include breakpoint (medium){
-           padding-top: 40vh; 
+        @include breakpoint (medium){ 
            font-size: 5rem;
        }
 }
