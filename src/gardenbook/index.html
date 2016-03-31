@@ -28,7 +28,7 @@
 <!-- Second title of the page -->
 <div class="row10OnTop title">
   <div class"small-12 columns">
-    <h2><span> &hearts; Soon to come &hearts;</span></h2>
+    <h2><span> &hearts; Binnenkort hier! &hearts;</span></h2>
   </div>
 </div>
 
@@ -37,5 +37,37 @@
     [%- partial('tuinboekCollage') %]
   </div>
 </div>
+
+<!-- gardenbook thumbnails with subtitle -->
+<script type="text/prismic-query" data-binding="Gardenbook">
+      [
+        [:d = at(document.type, "gardenbook")]
+      ]
+</script>
+
+
+[% _.each(Gardenbook.results, function(entry) { %]  
+  <div class="row space10OnTop">
+    <div class="column small-4">
+      <article>
+      <a href="[%= pathTo('entry', {id: entry.id}) %]">
+        <img class="thumbnail" src="[%= entry.getImage("gardenbook.image").main.url %]" />
+      </a>
+       </article>
+    </div>
+
+     <div class="column small-8">
+      <article>    
+        <h3>
+          <a href="[%= pathTo('entry', {id: entry.id}) %]">
+            [%= entry.getStructuredText("gardenbook.title").getTitle().text %]
+          </a>
+        </h3>
+        <p>[%= entry.getStructuredText("gardenbook.description").getFirstParagraph().text %]</p>
+      </article>
+    </div>
+[% }) %]
+</div>
+
 
 [%- partial('../layouts/foot') %]
