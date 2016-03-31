@@ -49,6 +49,7 @@
   </div>  
 </div>
 
+
 <div class="row" id="content">
   <div class=" small-12 medium-8 columns">
     <div class="blog-post">
@@ -56,7 +57,9 @@
       [% var linkResolver = require("../linkResolver.js") %]    
     
       <article>
-      [%- blogPost.getSliceZone("blogpost.body").asHtml(linkResolver)%]       
+      [%- blogPost.getSliceZone("blogpost.body").asHtml(linkResolver)%]     
+      <!-- hier kunnen we code toevoegen if statements voor verschillende types slices 
+      https://prismic.io/docs/custom-types#integrate?lang=node --> 
       </article>
       <br />
 
@@ -72,7 +75,7 @@
 
   <div class="medium-4 columns" data-sticky-container>
     <div class="sticky" data-sticky data-anchor="content">
-    <h4>Other Stories</h4>      
+    <h4>Gerelateerd</h4>      
       <ul>
       [% var filterdLinks = _.filter(related.results, function(item){
           return _.intersection(item.tags, tags).length > 0;
