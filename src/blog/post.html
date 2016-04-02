@@ -33,6 +33,7 @@
   </div>
 </div> 
 
+<!-- This is where the info from prismic starts -->
     <script type="text/prismic-query" data-eager="true" data-binding="blogPosts" >
       [
         [:d = any(document.id, ["$id"])]
@@ -55,13 +56,32 @@
     <div class="blog-post">
       
       [% var linkResolver = require("../linkResolver.js") %]    
-    
+      
       <article>
-      [%- blogPost.getSliceZone("blogpost.body").asHtml(linkResolver)%]     
-      <!-- hier kunnen we code toevoegen if statements voor verschillende types slices 
-      https://prismic.io/docs/custom-types#integrate?lang=node --> 
+      [% _.forEach(blogPost.getSliceZone("blogpost.body").value, function(slice){ %]
+
+        [% if (slice.sliceType === "text") { %]
+          [%-slice.asHtml(linkResolver) %]
+        [% } %]
+
+        [% if (slice.sliceType === "image-with-caption") { %]          
+          <div class = ""> 
+          plaatje
+          [% _.each(slice.value.toArray(), function(plaatje){ %]
+
+            <div>
+              [%- plaatje.getImage("illustration").asHtml() %]              
+              <span>[%- plaatje.getStructuredText("caption").getTitle().text %]</span>
+            </div>
+
+          [% })  %]
+
+          </div>
+        [% } %]
+      
+      [% }) %]  
+
       </article>
-      <br />
 
     </div>
   </div>  
