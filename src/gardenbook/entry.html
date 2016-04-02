@@ -1,0 +1,68 @@
+[%- partial('../layouts/head') %]
+    <meta name="prismic-routing-pattern" content="$id">
+    <meta name="prismic-routing-param" content="id">
+    <meta property="og:url" content="[%= urlToHere() %]" />
+
+   
+  </head>
+  <body>
+
+<!-- Top bar -->
+<div class="row topmenu">
+    <div class="small-3 large-2 columns">
+      <a href="/index.html">Home</a>
+    </div>
+    
+    <div class="small-3 large-2 columns">
+      <a href="../about/index.html">About</a>
+    </div>
+
+    <div class="small-3 large-2 columns">
+      <a href="blog">Blog</a>
+    </div>
+    
+    <div class="small-3 large-6 columns">
+    <a href="../contact/index.html">Contact</a>
+    </div>  
+</div>
+
+<!-- title of page. Background picture in css joedid -->
+<div class="row expanded gardenbook header">
+  <div class="large-12 columns title">
+    <h1>Tuinboek</h1>    
+  </div>
+</div> 
+
+
+<!-- This is where the info from prismic starts -->
+    <script type="text/prismic-query" data-eager="true" data-binding="plantEntries" >
+      [
+        [:d = any(document.id, ["$id"])]
+      ]
+    </script>
+
+    [% entry = plantEntries.results[0]; %]
+    [% tags = entry.tags; %]
+    
+
+<div class="row space10OnTop title blogpost">
+  <div class"small-12 columns">
+    <h2>[%= entry.getStructuredText("gardenbook.title").getTitle().text %]</h2>
+  </div>  
+</div>
+
+
+<div class="row" id="content">
+  <div class=" small-12 medium-8 columns">
+    <div class="blog-post">
+      
+      <h2>[%= entry.getStructuredText("gardenbook.zaaititle").getTitle().text %]</h2>
+      [% var linkResolver = require("../linkResolver.js") %]    
+    
+      <article>
+
+      </article>
+      <br />
+
+    </div>
+  </div>  

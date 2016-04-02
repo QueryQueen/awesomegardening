@@ -5,15 +5,19 @@
 
 <!-- Top bar -->
 <div class="row topmenu">
-    <div class="small-4 large-2 columns">
+    <div class="small-3 large-2 columns">
       <a href="/index.html">Home</a>
     </div>
     
-    <div class="small-4 large-2 columns">
+    <div class="small-3 large-2 columns">
       <a href="../about/index.html">About</a>
     </div>
+
+    <div class="small-3 large-2 columns">
+      <a href="blog">Blog</a>
+    </div>
     
-    <div class="small-4 large-8 columns">
+    <div class="small-3 large-6 columns">
     <a href="../contact/index.html">Contact</a>
     </div>  
 </div>
@@ -28,7 +32,7 @@
 <!-- Second title of the page -->
 <div class="row10OnTop title">
   <div class"small-12 columns">
-    <h2><span> &hearts; Binnenkort hier! &hearts;</span></h2>
+    <h2><span> &hearts; Binnenkort meer! &hearts;</span></h2>
   </div>
 </div>
 
@@ -39,18 +43,17 @@
 </div>
 
 <!-- gardenbook thumbnails with subtitle -->
-<script type="text/prismic-query" data-binding="Gardenbook">
+<script type="text/prismic-query" data-binding="plantEntry">
       [
         [:d = at(document.type, "gardenbook")]
       ]
 </script>
 
-
-[% _.each(Gardenbook.results, function(entry) { %]  
+[% _.each(plantEntry.results, function(entry) { %]  
   <div class="row space10OnTop">
     <div class="column small-4">
       <article>
-      <a href="[%= pathTo('entry', {id: entry.id}) %]">
+      <a href="[%= pathTo('entry', {id: entry.id}) %]"> 
         <img class="thumbnail" src="[%= entry.getImage("gardenbook.image").main.url %]" />
       </a>
        </article>
@@ -59,9 +62,9 @@
      <div class="column small-8">
       <article>    
         <h3>
-          <a href="[%= pathTo('entry', {id: entry.id}) %]">
+          <a href="[%= pathTo('entry', {id: entry.id}) %]"> 
             [%= entry.getStructuredText("gardenbook.title").getTitle().text %]
-          </a>
+          </a> 
         </h3>
         <p>[%= entry.getStructuredText("gardenbook.description").getFirstParagraph().text %]</p>
       </article>
