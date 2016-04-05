@@ -73,20 +73,20 @@ baked.init({
 });
 
 
-
-gulp.task('deploy', ['build','bake'], function () {
-  return surge({
-    project: './generated',         // Path to your static build directory
-    domain: 'www.awesomegardening.nl'  // Your domain or Surge subdomain
-  })
-});
-
 // gulp.task('server', ['baked:serve']);
 
 
 
 gulp.task('build', function(done) {
   sequence('clean', 'baked:default', ['sass', 'javascript', 'images', 'copy'], done);
+});
+
+
+gulp.task('deploy', ['build'], function () {
+  return surge({
+    project: './dist',         // Path to your static build directory
+    domain: 'www.awesomegardening.nl'  // Your domain or Surge subdomain
+  })
 });
 
 
