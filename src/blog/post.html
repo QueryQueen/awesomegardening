@@ -14,15 +14,15 @@
     </div>
 
     <div class="small-3 large-2 columns">
-      <a href="../about">About</a>
+      <a href="/about">About</a>
     </div>
     
     <div class="small-3 large-2 columns">
-      <a href="../contact">Contact</a>
+      <a href="/gardenbook">Tuinboek</a>
     </div>
     
     <div class="small-3 large-6 columns">
-    <a href="../gardenbook">Tuinboek</a>
+      <a href="/contact">Contact</a>
     </div>  
 </div>
 
@@ -32,6 +32,12 @@
     <h1>Tuinverhalen</h1>    
   </div>
 </div> 
+
+<div class="row space10OnTop">
+  <div class = "small-12 columns">
+    <a href="/blog">Terug</a>
+  </div>
+</div>
 
 <!-- This is where the info from prismic starts -->
     <script type="text/prismic-query" data-eager="true" data-binding="blogPosts" >
@@ -58,28 +64,70 @@
       [% var linkResolver = require("../linkResolver.js") %]    
       
       <article>
+      <!-- hier breken we de slicezone op in individuele slices -->
       [% _.forEach(blogPost.getSliceZone("blogpost.body").value, function(slice){ %]
 
+         <!-- Deze code is geldig voor de text slices -->  
         [% if (slice.sliceType === "text") { %]
           [%-slice.asHtml(linkResolver) %]
         [% } %]
 
+       <!-- OEFEN code is geldig voor de image-with-caption slices -->
         [% if (slice.sliceType === "image-with-caption") { %]          
-          <div class = ""> 
-          plaatje
-          [% _.each(slice.value.toArray(), function(plaatje){ %]
 
-            <div>
-              [%- plaatje.getImage("illustration").asHtml() %]              
-              <span>[%- plaatje.getStructuredText("caption").getTitle().text %]</span>
-            </div>
+               [% _.each(slice.value.toArray(), function(plaatje){ %]
 
-          [% })  %]
+                  <img src="[%- plaatje.getImage("illustration").getView("main").url %]" alt="SlideShow">
+                  <h5> [%- plaatje.getStructuredText("caption").getTitle().text %]</h5>
 
-          </div>
-        [% } %]
+              [% })  %]                         
+
+        [% } %] <!-- einde van if voor image met caption -->
       
-      [% }) %]  
+
+
+
+
+        <!-- Orbit Slider moet geldig worden als img group > 3 -->
+        <!-- [% if (slice.sliceType === "image-with-caption") { %]          
+          
+          <div class="orbit" role="region" aria-label="Blogpost-Slideshow" data-orbit>
+            <ul class="orbit-container">            
+              <button class="orbit-previous"><span class="show-for-sr">Previous Slide</span>&#9664;&#xFE0E;</button>
+              <button class="orbit-next"><span class="show-for-sr">Next Slide</span>&#9654;&#xFE0E;</button>
+
+               [% _.each(slice.value.toArray(), function(plaatje){ %]
+
+                <li class="is-active orbit-slide">
+                  <img class="orbit-image" src="[%- plaatje.getImage("illustration").getView("main").url %]" alt="SlideShow">
+                  <figcaption class="orbit-caption">[%- plaatje.getStructuredText("caption").getTitle().text %]</figcaption>
+                </li>
+
+              [% })  %]                          
+
+            </ul>
+            <nav class="orbit-bullets">
+               [% _.each(slice.value.toArray(), function(plaatje, index){ %]
+
+                [% if (index === 0){ %]
+
+                   <button class="is-active" data-slide="0"><span class="show-for-sr">[%- plaatje.getStructuredText("caption").getTitle().text %]</span><span class="show-for-sr">Current Slide</span></button>
+
+                [%}else{%]
+
+                    <button data-slide="[%-index%]"><span class="show-for-sr">[%- plaatje.getStructuredText("caption").getTitle().text %]</span></button>
+
+                [% } %] einde van else statement
+
+              [% })  %]  einde van nav class
+             -->
+           <!--  </nav> -->
+          
+          <!-- </div>
+
+        [% } %] einde van if voor image met caption -->
+      
+      [% }) %] <!-- for each slice blogpost.getsliceZone einde -->
 
       </article>
 
