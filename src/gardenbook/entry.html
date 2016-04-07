@@ -1,219 +1,181 @@
 [%- partial('../layouts/head') %]
-    <meta name="prismic-routing-pattern" content="$id">
-    <meta name="prismic-routing-param" content="id">
-    <meta property="og:url" content="[%= urlToHere() %]" />
+<meta name="prismic-routing-pattern" content="$id">
+<meta name="prismic-routing-param" content="id">
+<meta property="og:url" content="[%= urlToHere() %]" />
 
-   
-  </head>
-  <body>
-
+</head>
+<body>
 <!-- Top bar -->
 <div class="row topmenu">
-    <div class="small-3 large-2 columns">
-      <a href="/">Home</a>
-    </div>
-    
-    <div class="small-3 large-2 columns">
-      <a href="../src/about">About</a>
-    </div>
-
-    <div class="small-3 large-2 columns">
-      <a href="../blog">Blog</a>
-    </div>
-    
-    <div class="small-3 large-6 columns">
+  <div class="small-3 large-2 columns">
+    <a href="/">Home</a>
+  </div>
+  
+  <div class="small-3 large-2 columns">
+    <a href="../src/about">About</a>
+  </div>
+  <div class="small-3 large-2 columns">
+    <a href="../blog">Blog</a>
+  </div>
+  
+  <div class="small-3 large-6 columns">
     <a href="../contact">Contact</a>
-    </div>  
+  </div>
 </div>
-
-
 <!-- This is where the info from prismic starts -->
-    <script type="text/prismic-query" data-eager="true" data-binding="plantEntries" >
-      [
-        [:d = any(document.id, ["$id"])]
-      ]
-    </script>
-
-    [% entry = plantEntries.results[0]; %]
-    [% tags = entry.tags; %]
-
+<script type="text/prismic-query" data-eager="true" data-binding="plantEntries" >
+[
+[:d = any(document.id, ["$id"])]
+]
+</script>
+[% entry = plantEntries.results[0]; %]
+[% tags = entry.tags; %]
 <!-- This is the header of the page with the main title -->
 <div class="row expanded header" style="background-image: url([%= entry.getImage("gardenbook.image").main.url %])">
   <div class="large-12 columns title">
     <h1>[%= entry.getStructuredText("gardenbook.title").getTitle().text %]</h1>
   </div>
-</div> 
-
-
-
-<!-- Description of the vegetable - from main -->
-<div class="row space10OnTop">
-
-  <div class="small-12 medium-8 columns">
-    <div class="blog-post">
-       <p>[%= entry.getStructuredText("gardenbook.description").getFirstParagraph().text %]</p>
-    </div>
-  </div>  
-
-  <!-- This is the meta info about the veggies -->
-
-    <div class="small-6 medium-4 columns">
-      <p><a href="/gardenbook">Zaaikalender:[%= entry.getText("gardenbook.zaaikalender")%]</p></a> 
-    </div>
-
-    <div class="small-6 medium-4 columns">
-      <p><a href="/gardenbook">Wisselteelt:[%= entry.getText("gardenbook.wisselteelt")%]</p></a>
-    </div>
-
-    <div class="small-6 medium-4 columns">
-      <p><a href="/gardenbook">Zaaimaand:[%= entry.getText("gardenbook.zaaimaand")%]</p></a>
-    </div>
-
-    <div class="small-6 medium-4 columns">
-      <p><a href="/gardenbook">Zaaimethode:[%= entry.getText("gardenbook.zaaimethode")%]</p></a>
-    </div>
-
 </div>
 
-<hr>
+ <!-- This is the meta info about the veggies -->
+<div class="row space10OnTop">
+  <div class="small-12 columns">
+    
+    <div class="small-3 columns">
+    <p><a href="/gardenbook">[%= entry.getText("gardenbook.zaaikalender")%]</p></a>
+    </div>
+    
+    <div class="small-3 columns">
+    <p><a href="/gardenbook">[%= entry.getText("gardenbook.wisselteelt")%]</p></a>
+    </div>
+
+    <div class="small-3 columns">
+    <p><a href="/gardenbook">zaaimaand:[%= entry.getText("gardenbook.zaaimaand")%]</p></a>
+    </div>
+
+    <div class="small-3 columns">
+    <p><a href="/gardenbook">[%= entry.getText("gardenbook.zaaimethode")%]</p></a>
+    </div>
+
+  </div>
+</div>
+
+<!-- Description of the vegetable - from main -->
+<div class="row blogpost">
+  <div class="small-12 columns">
+    <div class="blog-post">
+      <h2>Beschrijving</h2>
+      <p>[%= entry.getStructuredText("gardenbook.description").getFirstParagraph().text %]</p>
+    </div>
+  </div>
+</div>
+  
+ 
 
 <!-- This is where the actual content starts -->
 <div class="row space10OnTop" id="content">
-
-  <!--Zaaien title -->
-  <div class=" small-12 medium-8 columns blogpost title">
-    <div class="blog-post">
-      <h2> <a name="zaaien"></a>[%= entry.getStructuredText("gardenbook.zaaititle").getTitle().text %]
-      [% var linkResolver = require("../linkResolver.js") %]</h2>    
-    </div>
-  </div>  
-
-  <!-- Zaaien content -->
-  <div class=" small-12 medium-8 columns">
-    <div class="blog-post">
-      
-      [% var linkResolver = require("../linkResolver.js") %]    
-      
-      <article>
-      <!-- hier breken we de slicezone op in individuele slices -->
-      [% _.forEach(entry.getSliceZone("gardenbook.zaaiinfo").value, function(slice){ %]
-
-         <!-- Deze code is geldig voor de text slices -->  
-        [% if (slice.sliceType === "text") { %]
+  <!-- divide into two parts, the content and the sidemenu -->
+  <div class="small-12 medium-8 columns">
+    
+    <!--Zaaien title -->
+    <div class="row blogpost">
+      <div class="small-12 columns">
+      <!-- TODO:can this blog-post class be removed -->
+        <div class="blog-post">
+          <article>
+            <h2> <a name="zaaien"></a>[%= entry.getStructuredText("gardenbook.zaaititle").getTitle().text %]
+            [% var linkResolver = require("../linkResolver.js") %]</h2>
+          <!-- Zaaien content -->
+          [% var linkResolver = require("../linkResolver.js") %]
+          <!-- hier breken we de slicezone op in individuele slices -->
+          [% _.forEach(entry.getSliceZone("gardenbook.zaaiinfo").value, function(slice){ %]
+          <!-- Deze code is geldig voor de text slices -->
+          [% if (slice.sliceType === "text") { %]
           [%-slice.asHtml(linkResolver) %]
-        [% } %]
-
-       <!-- Deze code is geldig voor de image-with-caption slices -->
-        [% if (slice.sliceType === "image-with-caption") { %]          
-
-               [% _.each(slice.value.toArray(), function(plaatje){ %]
-
-                  <img src="[%- plaatje.getImage("illustration").getView("main").url %]" alt="GardenbookImage">
-                  <h5> [%- plaatje.getStructuredText("caption").getTitle().text %]</h5>
-
-              [% })  %]                         
-
-        [% } %] <!-- einde van if voor image met caption -->
-       [% }) %] <!-- for each slice blogpost.getsliceZone einde -->
-
-      
+          [% } %]
+          <!-- Deze code is geldig voor de image-with-caption slices -->
+          [% if (slice.sliceType === "image-with-caption") { %]
+          [% _.each(slice.value.toArray(), function(plaatje){ %]
+          <img src="[%- plaatje.getImage("illustration").getView("main").url %]" alt="GardenbookImage">
+          <h5> [%- plaatje.getStructuredText("caption").getTitle().text %]</h5>
+          [% })  %]
+          [% } %] <!-- einde van if voor image met caption -->
+          [% }) %] <!-- for each slice blogpost.getsliceZone einde -->
+        </div>
+      </div>
     </div>
-  </div> 
 
-  <!--Verzorgen title -->
-  <div class=" small-12 medium-8 columns blogpost title">
-    <div class="blog-post">
-      <h2> <a name="verzorging"></a>[%= entry.getStructuredText("gardenbook.verzorgtitle").getTitle().text %]
-      [% var linkResolver = require("../linkResolver.js") %]</h2>    
-    </div>
-  </div>  
-
-  <div class=" small-12 medium-8 columns">
-    <div class="blog-post">
-      
-      [% var linkResolver = require("../linkResolver.js") %]    
-      
-     
-      <!-- hier breken we de slicezone op in individuele slices -->
-      [% _.forEach(entry.getSliceZone("gardenbook.verzorgeninfo").value, function(slice){ %]
-
-         <!-- Deze code is geldig voor de text slices -->  
-        [% if (slice.sliceType === "text") { %]
+      <!--Verzorgen title -->
+    <div class=" row blogpost">
+      <div class="small-12 columns">
+        <div class="blog-post">
+          <h2> <a name="verzorging"></a>[%= entry.getStructuredText("gardenbook.verzorgtitle").getTitle().text %]
+          [% var linkResolver = require("../linkResolver.js") %]</h2>
+          <!-- verzorgen content -->          
+          [% var linkResolver = require("../linkResolver.js") %]
+          <!-- hier breken we de slicezone op in individuele slices -->
+          [% _.forEach(entry.getSliceZone("gardenbook.verzorgeninfo").value, function(slice){ %]
+          <!-- Deze code is geldig voor de text slices -->
+          [% if (slice.sliceType === "text") { %]
           [%-slice.asHtml(linkResolver) %]
-        [% } %]
+          [% } %]
+          <!-- Deze code is geldig voor de image-with-caption slices -->
+          [% if (slice.sliceType === "image-with-caption") { %]
+          [% _.each(slice.value.toArray(), function(plaatje){ %]
+          <img src="[%- plaatje.getImage("illustration").getView("main").url %]" alt="GardenbookImage">
+          <h5> [%- plaatje.getStructuredText("caption").getTitle().text %]</h5>
+          [% })  %]
+          [% } %] <!-- einde van if voor image met caption -->
+          [% }) %] <!-- for each slice blogpost.getsliceZone einde -->
+        </div>
+      </div>
+    </div>
 
-       <!-- Deze code is geldig voor de image-with-caption slices -->
-        [% if (slice.sliceType === "image-with-caption") { %]          
-
-               [% _.each(slice.value.toArray(), function(plaatje){ %]
-
-                  <img src="[%- plaatje.getImage("illustration").getView("main").url %]" alt="GardenbookImage">
-                  <h5> [%- plaatje.getStructuredText("caption").getTitle().text %]</h5>
-
-              [% })  %]                         
-
-        [% } %] <!-- einde van if voor image met caption -->
-       [% }) %] <!-- for each slice blogpost.getsliceZone einde -->
-
+      <!--Oogsten title -->
+    <div class=" row blogpost">
+      <div class="small-12 columns">
+        <div class="blog-post">
+          <h2> <a name="oogsten"></a>[%= entry.getStructuredText("gardenbook.oogsttitle").getTitle().text %]
+          [% var linkResolver = require("../linkResolver.js") %]</h2>
+          <!-- oogsten content -->
+          [% var linkResolver = require("../linkResolver.js") %]
+          <!-- hier breken we de slicezone op in individuele slices -->
+          [% _.forEach(entry.getSliceZone("gardenbook.oogstinfo").value, function(slice){ %]
+          <!-- Deze code is geldig voor de text slices -->
+          [% if (slice.sliceType === "text") { %]
+          [%-slice.asHtml(linkResolver) %]
+          [% } %]
+          <!-- Deze code is geldig voor de image-with-caption slices -->
+          [% if (slice.sliceType === "image-with-caption") { %]
+          [% _.each(slice.value.toArray(), function(plaatje){ %]
+          <img src="[%- plaatje.getImage("illustration").getView("main").url %]" alt="GardenbookImage">
+          <h5> [%- plaatje.getStructuredText("caption").getTitle().text %]</h5>
+          [% })  %]
+          [% } %] <!-- einde van if voor image met caption -->
+          [% }) %] <!-- for each slice blogpost.getsliceZone einde -->
+        </article>
+        </div>
+      </div>
+    </div>
+  </div>
   
-
-    </div>
-  </div> 
-
-  <!--Oogsten title -->
-  <div class=" small-12 medium-8 columns blogpost title">
-    <div class="blog-post">
-      <h2> <a name="oogsten"></a>[%= entry.getStructuredText("gardenbook.oogsttitle").getTitle().text %]
-      [% var linkResolver = require("../linkResolver.js") %]</h2>    
-    </div>
-  </div>  
-
-  <div class=" small-12 medium-8 columns">
-    <div class="blog-post">
-      
-      [% var linkResolver = require("../linkResolver.js") %]    
-      
-  
-      <!-- hier breken we de slicezone op in individuele slices -->
-      [% _.forEach(entry.getSliceZone("gardenbook.oogstinfo").value, function(slice){ %]
-
-         <!-- Deze code is geldig voor de text slices -->  
-        [% if (slice.sliceType === "text") { %]
-          [%-slice.asHtml(linkResolver) %]
-        [% } %]
-
-       <!-- Deze code is geldig voor de image-with-caption slices -->
-        [% if (slice.sliceType === "image-with-caption") { %]          
-
-               [% _.each(slice.value.toArray(), function(plaatje){ %]
-
-                  <img src="[%- plaatje.getImage("illustration").getView("main").url %]" alt="GardenbookImage">
-                  <h5> [%- plaatje.getStructuredText("caption").getTitle().text %]</h5>
-
-              [% })  %]                         
-
-        [% } %] <!-- einde van if voor image met caption -->
-       [% }) %] <!-- for each slice blogpost.getsliceZone einde -->
-      </article>
-    </div>
-  </div> 
-
   <div class="medium-4 columns" data-sticky-container>
     <div class="sticky" data-sticky data-anchor="content">
-    <h4>Snel naar</h4>
-    <li><a href="#zaaien">Zaaien</a></li>  
-    <li><a href="#verzorgen">Verzorgen</a></li> 
-    <li><a href="#oogsten">Oogsten</a></li> 
-    <h4>Logboek</h4>
-    <li>31 maart - 6 komkommer MarketMore gezaaid</li>
-    <li>28 maart - 4 augurk Little Leaf gezaaid </li>
-    <li>25 maart - 2 komkommer Whatever verpot</li> 
+      <div class="row column">
+      <h4>Snel naar</h4>
+      <li><a href="#zaaien">Zaaien</a></li>
+      <li><a href="#verzorging">Verzorgen</a></li>
+      <li><a href="#oogsten">Oogsten</a></li>
+      </div>
+
+      <div class="row column space10OnTop">
+      <h4>Logboek</h4>
+      <li>31 maart - 6 komkommer MarketMore gezaaid</li>
+      <li>28 maart - 4 augurk Little Leaf gezaaid </li>
+      <li>25 maart - 2 komkommer Whatever verpot</li>
+      </div>
     </div>
   </div>
 
 </div>
-
-  
-
-
-
+[%- partial('../layouts/foot') %] 
