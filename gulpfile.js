@@ -200,8 +200,8 @@ gulp.task('server', ['build'], function() {
 // Build the site, run the server, and watch for file changes
 gulp.task('default', ['build', 'server'], function() {
   gulp.watch(PATHS.assets, ['copy', browser.reload]);
-  gulp.watch(['src/**/*.html'], ['baked:default', browser.reload]);
-  gulp.watch(['src/{layouts,partials}/**/*.html'], ['baked:default', browser.reload]);
+  gulp.watch(['src/**/*.html'], ['build', browser.reload]);
+  gulp.watch(['src/{layouts,partials}/**/*.html'], ['build', browser.reload]);
   gulp.watch(['src/assets/scss/**/*.scss'], ['sass', browser.reload]);
   gulp.watch(['src/assets/js/**/*.js'], ['javascript', browser.reload]);
   gulp.watch(['src/assets/img/**/*'], ['images', browser.reload]);  

@@ -1,2 +1,2 @@
 $(document).foundation();
-console.log("started foundation");
+console.log("hallo Judith");
