@@ -14,6 +14,7 @@
   <div class="small-3 large-2 columns">
     <a href="../src/about">About</a>
   </div>
+
   <div class="small-3 large-2 columns">
     <a href="../blog">Blog</a>
   </div>
@@ -30,6 +31,7 @@
 </script>
 [% entry = plantEntries.results[0]; %]
 [% tags = entry.tags; %]
+
 <!-- This is the header of the page with the main title -->
 <div class="row expanded header" style="background-image: url([%= entry.getImage("gardenbook.image").main.url %])">
   <div class="large-12 columns title">
@@ -37,24 +39,26 @@
   </div>
 </div>
 
+
+
  <!-- This is the meta info about the veggies -->
 <div class="row space10OnTop">
   <div class="small-12 columns">
     
-    <div class="small-3 columns">
-    <p><a href="/gardenbook">[%= entry.getText("gardenbook.zaaikalender")%]</p></a>
+    <div class="small-12 medium-3 columns">
+    <p><a href="/gardenbook">1.[%= entry.getText("gardenbook.zaaikalender")%]</p></a>
     </div>
     
-    <div class="small-3 columns">
-    <p><a href="/gardenbook">[%= entry.getText("gardenbook.wisselteelt")%]</p></a>
+    <div class="small-12 medium-3 columns">
+    <p><a href="/gardenbook">2.[%= entry.getText("gardenbook.wisselteelt")%]</p></a>
     </div>
 
-    <div class="small-3 columns">
-    <p><a href="/gardenbook">zaaimaand:[%= entry.getText("gardenbook.zaaimaand")%]</p></a>
+    <div class="small-12 medium-3 columns">
+    <p><a href="/gardenbook">3.zaaimaand:[%= entry.getText("gardenbook.zaaimaand")%]</p></a>
     </div>
 
-    <div class="small-3 columns">
-    <p><a href="/gardenbook">[%= entry.getText("gardenbook.zaaimethode")%]</p></a>
+    <div class="small-12 medium-3 columns">
+    <p><a href="/gardenbook">4.[%= entry.getText("gardenbook.zaaimethode")%]</p></a>
     </div>
 
   </div>
@@ -168,12 +172,21 @@
       <li><a href="#oogsten">Oogsten</a></li>
       </div>
 
+
       <div class="row column space10OnTop">
       <h4>Logboek</h4>
+      <!-- TODO: logboek laatste 3 entries integreren -->
       <li>31 maart - 6 komkommer MarketMore gezaaid</li>
       <li>28 maart - 4 augurk Little Leaf gezaaid </li>
       <li>25 maart - 2 komkommer Whatever verpot</li>
       </div>
+
+      <div class="row column space10OnTop">
+      <h4>Rassen</h4>
+      <!-- TODO: rassen entries integreren foto & titel -->
+      <li>MarketMore</li>
+      <li>Augurk Little Leaf</li>
+      <li>Komkommer</li>
     </div>
   </div>
 
