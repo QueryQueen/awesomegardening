@@ -36,9 +36,38 @@
   </div>
 </div>
 
-<div class="expanded row">
+<div class="row">
+  <div class="small-12 columns"
+  <p>Graag deel ik mijn kennis met jullie. Over de jaren heb ik al aardig wat verschillende groenten en fruit verbouwd. Met wisselend succes en geimproviseerde middelen. In mijn tuinboek kun je lezen wat ik zoal heb geleerd. Over zaaien, verzorgen en oogsten. Daarnaast vind je foto's en wat informatie over de verschillende rassen die ik geprobeerd heb. En soms vind je ook een linkje naar een recept en de laatste entries uit het logboek, waarin ik bijhoud wat ik heb gedaan zodat ik straks nog meer weet. Bij iedere pagina in het tuinboek vind je bovenaan vier categorieen, die ik hier even uitleg.</p>
+  </div>
+
+  <div class="small-12 medium-4 columns">
+  <h3><small>1. Plantgroep voor zaaikalender</small></h3>
+  <p>De biodynamische zaaikalender van Maria Thun bepaalt het beste zaaimoment op basis van de stand van de maan en planeten. Volgens deze zienswijze zal een plant investeren in blad, wortels, vrucht of bloem afhankelijk van het zaaimoment. Dit zijn dus ook de vier groepen. De zaaikalender geeft ook lekker structuur en overzicht tijdens de drukke zaaimaanden. Dit is het eerste jaar dat ik het uitprobeer.</p>
+  </div>
+
+  <div class="small-12 medium-4 columns">
+  <h3><small>2. Plantgroep voor de wisselteelt</small></h3>
+  <p>Het idee van wisselteelt is dat je planten opdeelt in groepen van planten die soortgelijk zijn, en dan per groep een stukje tuin vrijmaakt en dit ieder jaar doorwisselt. Op deze manier put je de grond niet volledig uit en zorg je er voor dat ziekten geen kans krijgen. Het lastige hieraan is dat de planten in deze groepen niet perse ook dezelfde voedingsbehoeften of standplaats vragen. Lekker puzzelen dus! Ik heb de planten opgedeeld in bladgewas, koolgewas, wortelgewas, vruchtgewas, peulgewas, aardappelen en vaste planten.</p>
+  </div>
+
+  <div class="small-12 medium-4 columns">
+  <h3><small>3. Zaaimaand en 4. Zaaimethode</small></h3>
+  <p>De maand is de vroegst mogelijke maand. Voor snel overzicht heb ik drie zaaimethoden gedefinieerd: binnen voorzaaien, buiten voorzaaien en rechtstreeks in de volle grond zaaien. Dit is ook een kwestie van persoonlijke voorkeur. Uitdunnen vind ik zelf echt verschrikkelijk, daarom houd ik meer van voorzaaien. Daarnaast kun je de plantjes dan makkelijker verplaatsen en zo beschermen indien nodig (tegen vogels, extreem weer, honden, te fel zonlicht etcetera).</p>
+  </div>
+  
+</div>
+
+<!-- <div class="expanded row">
   <div class="large-12 columns text-center">
     [%- partial('tuinboekCollage') %]
+  </div>
+</div> -->
+
+<!-- Second title of the page -->
+<div class="row space10OnTop title">
+  <div class"small-12 columns">
+    <h2><span> &hearts; Index &hearts;</span></h2>
   </div>
 </div>
 
@@ -50,27 +79,24 @@
 </script>
 
 [% _.each(plantEntry.results, function(entry) { %]  
-  <div class="row space10OnTop">
+
+  <div class="row">
     <div class="column small-4">
       <article>
+      <h3>
+          <a href="[%= pathTo('entry', {id: entry.id}) %]"> 
+            [%= entry.getStructuredText("gardenbook.title").getTitle().text %]
+          </a> 
+      </h3>
       <a href="[%= pathTo('entry', {id: entry.id}) %]"> 
         <img class="thumbnail" src="[%= entry.getImage("gardenbook.image").main.url %]" />
       </a>
        </article>
     </div>
-
-     <div class="column small-8">
-      <article>    
-        <h3>
-          <a href="[%= pathTo('entry', {id: entry.id}) %]"> 
-            [%= entry.getStructuredText("gardenbook.title").getTitle().text %]
-          </a> 
-        </h3>
-        <p>[%= entry.getStructuredText("gardenbook.description").getFirstParagraph().text %]</p>
-      </article>
-    </div>
 [% }) %]
 </div>
+
+
 
 
 [%- partial('../layouts/foot') %]
